@@ -45,6 +45,7 @@ function pmproga_pmpro_after_checkout($user_id)
 }
 add_action("pmpro_paypalexpress_session_vars", "pmproga_pmpro_after_checkout");
 add_action("pmpro_before_send_to_twocheckout", "pmproga_pmpro_after_checkout");
+add_action("pmpro_after_checkout", "pmproga_pmpro_after_checkout");
 
 /*
 	Update order notes at checkout.
