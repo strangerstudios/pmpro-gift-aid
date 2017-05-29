@@ -3,7 +3,7 @@
 Plugin Name: PMPro Gift Aid
 Plugin URI: http://www.paidmembershipspro.com/wp/pmpro-gift-aid/
 Description: Add checkbox to opt into the UK Gift Aid
-Version: .1
+Version: .1.1
 Author: Stranger Studios
 Author URI: http://www.strangerstudios.com
 */
@@ -56,7 +56,7 @@ function pmproga_pmpro_checkout_order($order)
 	else
 		return $order;
 	
-	if(strpos($order->notes, "Gift Aid:") === false)
+	if(!empty($order) && !empty($order->notes) && strpos($order->notes, "Gift Aid:") === false)
 	{
 		if($gift_aid)
 			$order->notes .= "Gift Aid: Yes\n";
@@ -112,6 +112,8 @@ function pmproga_pmpro_email_filter($email)
 			{
 				$gift_aid = "No";
 			}
+			else
+				$gift_aid = "No";
 
 			//add to bottom of email
 			$email->body = preg_replace("/\<p\>\s*Invoice/", "<p>Gift Aid: " . $gift_aid . "</p><p>Invoice", $email->body);	
