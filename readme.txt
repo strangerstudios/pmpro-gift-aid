@@ -24,7 +24,7 @@ Please post it in the issues section of GitHub and we'll fix it as soon as we ca
 
 == Changelog ==
 = .1.1 =
-* BUG FIX: Fixed issue where gift aid data wasn't being saved after checkout with some gateways.
+* BUG FIX: Fixed issue where gift aid data wasn't being saved into user meta after checkout with some gateways.
 * BUG FIX: Fixed a warning.
 
 = .1 =

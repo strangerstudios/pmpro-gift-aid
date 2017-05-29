@@ -38,14 +38,25 @@ add_action('pmpro_checkout_after_level_cost', 'pmproga_pmpro_checkout_after_leve
 */
 function pmproga_pmpro_after_checkout($user_id)
 {
-	if(isset($_REQUEST['gift_aid']))
-	{
+	if(isset($_REQUEST['gift_aid'])) {
 		update_user_meta($user_id, "gift_aid", intval($_REQUEST['gift_aid']));
+	} elseif(isset($_SESSION['gift_aid'])) {
+		update_user_meta($user_id, "gift_aid", intval($_SESSION['gift_aid']));
+		unset($_SESSION['gift_aid']);
 	}
 }
-add_action("pmpro_paypalexpress_session_vars", "pmproga_pmpro_after_checkout");
-add_action("pmpro_before_send_to_twocheckout", "pmproga_pmpro_after_checkout");
 add_action("pmpro_after_checkout", "pmproga_pmpro_after_checkout");
+
+/*
+	Save gift aid value in session for offsite gateways.
+*/
+function pmpro_paypalexpress_session_vars() {
+	if(isset($_REQUEST['gift_aid'])) {
+		$_SESSION['gift_aid'] = $_REQUEST['gift_aid'];
+	}
+}
+add_action("pmpro_paypalexpress_session_vars", "pmpro_paypalexpress_session_vars");
+add_action("pmpro_before_send_to_twocheckout", "pmpro_paypalexpress_session_vars");
 
 /*
 	Update order notes at checkout.
@@ -57,7 +68,7 @@ function pmproga_pmpro_checkout_order($order)
 	else
 		return $order;
 	
-	if(!empty($order) && !empty($order->notes) && strpos($order->notes, "Gift Aid:") === false)
+	if(!empty($order) && (empty($order->notes) || strpos($order->notes, "Gift Aid:") === false))
 	{
 		if($gift_aid)
 			$order->notes .= "Gift Aid: Yes\n";
