@@ -2,7 +2,7 @@
 Contributors: strangerstudios
 Tags: paid memberships pro, pmpro, membership, uk, gift aid
 Requires at least: 3.5
-Tested up to: 4.2.2
+Tested up to: 4.8
 Stable tag: .1.1
 
 Add checkbox to opt into the UK Gift Aid
@@ -24,7 +24,8 @@ Please post it in the issues section of GitHub and we'll fix it as soon as we ca
 
 == Changelog ==
 = .1.1 =
-* Fixed a warning.
+* BUG FIX: Fixed issue where gift aid data wasn't being saved after checkout with some gateways.
+* BUG FIX: Fixed a warning.
 
 = .1 =
 * This is the initial version of the plugin.
