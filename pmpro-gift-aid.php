@@ -3,7 +3,7 @@
 Plugin Name: PMPro Gift Aid
 Plugin URI: http://www.paidmembershipspro.com/wp/pmpro-gift-aid/
 Description: Add checkbox to opt into the UK Gift Aid
-Version: .1.1
+Version: .1.2
 Author: Stranger Studios
 Author URI: http://www.strangerstudios.com
 */
@@ -38,6 +38,9 @@ add_action('pmpro_checkout_after_level_cost', 'pmproga_pmpro_checkout_after_leve
 */
 function pmproga_pmpro_after_checkout($user_id)
 {
+	if(empty($user_id))
+		return;
+	
 	if(isset($_REQUEST['gift_aid'])) {
 		update_user_meta($user_id, "gift_aid", intval($_REQUEST['gift_aid']));
 	} elseif(isset($_SESSION['gift_aid'])) {
@@ -46,13 +49,14 @@ function pmproga_pmpro_after_checkout($user_id)
 	}
 }
 add_action("pmpro_after_checkout", "pmproga_pmpro_after_checkout");
+add_action("pmpro_checkout_before_change_membership_level", "pmproga_pmpro_after_checkout");
 
 /*
 	Save gift aid value in session for offsite gateways.
 */
 function pmpro_paypalexpress_session_vars() {
 	if(isset($_REQUEST['gift_aid'])) {
-		$_SESSION['gift_aid'] = $_REQUEST['gift_aid'];
+		$_SESSION['gift_aid'] = $_REQUEST['gift_aid'];				
 	}
 }
 add_action("pmpro_paypalexpress_session_vars", "pmpro_paypalexpress_session_vars");
