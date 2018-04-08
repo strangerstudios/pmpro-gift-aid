@@ -1,13 +1,17 @@
-=== Paid Memberships Pro - Gift Aid ===
+=== Paid Memberships Pro - Gift Aid Add On ===
 Contributors: strangerstudios
 Tags: paid memberships pro, pmpro, membership, uk, gift aid
 Requires at least: 3.5
-Tested up to: 4.8
+Tested up to: 4.9.5
 Stable tag: .1.2
 
-Add checkbox to opt into the UK Gift Aid
+Add a Checkbox to Opt In to the UK Gift Aid Tax-Incentive on Membership Checkout.
 
 == Description ==
+Gift Aid allows individuals who are subject to UK income tax to complete a simple, short declaration that they are a UK taxpayer. If you don’t know what Gift Aid is – you probably don't need this.
+
+This Add On allows you to add a checkbox to membership checkout so customers can opt in to Gift Aid.
+
 This plugin requires Paid Memberships Pro. 
 
 == Installation ==

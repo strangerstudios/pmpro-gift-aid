@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: PMPro Gift Aid
-Plugin URI: http://www.paidmembershipspro.com/wp/pmpro-gift-aid/
-Description: Add checkbox to opt into the UK Gift Aid
+Plugin Name: Paid Memberships Pro - Gift Aid Add On
+Plugin URI: https://www.paidmembershipspro.com/add-ons/pmpro-gift-aid/
+Description: Add a Checkbox to Opt In to the UK Gift Aid Tax-Incentive on Membership Checkout.
 Version: .1.2
-Author: Stranger Studios
-Author URI: http://www.strangerstudios.com
+Author: Paid Memberships Pro
+Author URI: https://www.paidmembershipspro.com
 */
 
 /*
@@ -167,10 +167,11 @@ function pmpro_orders_csv_gift_aid_column($order)
 Function to add links to the plugin row meta
 */
 function pmproga_plugin_row_meta($links, $file) {
-	if(strpos($file, 'pmpro-variable-prices.php') !== false)
+	if(strpos($file, 'pmpro-gift-aid.php') !== false)
 	{
 		$new_links = array(
-			'<a href="' . esc_url('http://paidmembershipspro.com/support/') . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'pmpro' ) ) . '">' . __( 'Support', 'pmpro' ) . '</a>',
+			'<a href="' . esc_url('https://www.paidmembershipspro.com/add-ons/gift-aid/')  . '" title="' . esc_attr( __( 'View Documentation', 'pmpro' ) ) . '">' . __( 'Docs', 'pmpro' ) . '</a>',
+			'<a href="' . esc_url('http://paidmembershipspro.com/support/') . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'pmpro-gift-aid' ) ) . '">' . __( 'Support', 'pmpro-gift-aid' ) . '</a>',
 		);
 		$links = array_merge($links, $new_links);
 	}
