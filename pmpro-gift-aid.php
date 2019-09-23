@@ -74,7 +74,7 @@ function pmproga_pmpro_checkout_order($order)
 	
 	if(!empty($order) && (empty($order->notes) || strpos($order->notes, "Gift Aid:") === false))
 	{
-		if ( null === $order->notes ) {
+		if ( ! isset( $order->notes ) || null === $order->notes ) {
 			$order->notes = '';
 		}
 
