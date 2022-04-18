@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: Paid Memberships Pro - Gift Aid Add On
-Plugin URI: https://www.paidmembershipspro.com/add-ons/pmpro-gift-aid/
-Description: Add a Checkbox to Opt In to the UK Gift Aid Tax-Incentive on Membership Checkout.
+Plugin URI: https://www.paidmembershipspro.com/add-ons/gift-aid/
+Description: Add a Checkbox to Opt In to the UK “Gift Aid” Tax-Incentive on Membership Checkout.
 Version: .1.2
 Author: Paid Memberships Pro
 Author URI: https://www.paidmembershipspro.com
