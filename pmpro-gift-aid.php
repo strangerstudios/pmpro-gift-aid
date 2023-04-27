@@ -6,6 +6,8 @@ Description: Add a Checkbox to Opt In to the UK “Gift Aid” Tax-Incentive on 
 Version: .1.2
 Author: Paid Memberships Pro
 Author URI: https://www.paidmembershipspro.com
+Text Domain: pmpro-gift-aid
+Domain Path: /languages
 */
 
 /*
@@ -24,8 +26,8 @@ function pmproga_pmpro_checkout_after_level_cost()
 		$gift_aid = false;
 ?>
 	<hr />
-	<h3>Gift Aid</h3>
-	<p>Gift Aid legislation allows us to reclaim 25p of tax on every £1 that you give on your subscription and additional donations. It won't cost you any extra.</p>
+	<h3><?php esc_html_e("Gift Aid", 'pmpro-gift-aid' );?></h3>
+    <p><?php esc_html_e("Gift Aid legislation allows us to reclaim 25p of tax on every £1 that you give on your subscription and additional donations. It won't cost you any extra.", 'pmpro-gift-aid' );?></p>
 	<input type="checkbox" id="gift_aid" name="gift_aid" value="1" <?php if($gift_aid) echo 'checked="checked"';?> />
 	<label class="pmpro_normal pmpro_clickable" for="gift_aid">Allow Gift Aid to be collected?</label>
 	<hr />
@@ -92,13 +94,13 @@ function pmproga_pmpro_invoice_bullets_bottom($order)
 	if(strpos($order->notes, "Gift Aid: Yes") !== false)
 	{
 	?>
-	<li><strong><?php _e('Gift Aid', 'pmpro');?>:</strong> Yes</li>
+	<li><strong><?php esc_html_e('Gift Aid', 'pmpro-gift-aid');?>:</strong> Yes</li>
 	<?php
 	}
 	elseif(strpos($order->notes, "Gift Aid: No") !== false)
 	{
 	?>
-	<li><strong><?php _e('Gift Aid', 'pmpro');?>:</strong> No</li>
+	<li><strong><?php esc_html_e('Gift Aid', 'pmpro-gift-aid');?>:</strong> No</li>
 	<?php
 	}
 }
