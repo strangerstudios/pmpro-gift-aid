@@ -24,7 +24,7 @@ function pmproga_pmpro_checkout_after_level_cost()
 		$gift_aid = false;
 ?>
 	<hr />
-	<h3>Gift Aid</h3>
+	<h2>Gift Aid</h2>
 	<p>Gift Aid legislation allows us to reclaim 25p of tax on every £1 that you give on your subscription and additional donations. It won't cost you any extra.</p>
 	<input type="checkbox" id="gift_aid" name="gift_aid" value="1" <?php if($gift_aid) echo 'checked="checked"';?> />
 	<label class="pmpro_normal pmpro_clickable" for="gift_aid">Allow Gift Aid to be collected?</label>
