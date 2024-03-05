@@ -23,7 +23,7 @@ function pmproga_pmpro_checkout_after_level_cost()
 	else
 		$gift_aid = false;
 
-	global $pmpro_level;
+	$pmpro_level = pmpro_getLevelAtCheckout();
 
 	if ( !pmpro_isLevelFree( $pmpro_level ) ) {
 ?>
