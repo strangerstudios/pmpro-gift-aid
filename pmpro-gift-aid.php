@@ -24,6 +24,10 @@ function pmproga_pmpro_checkout_after_level_cost()
 	}
 	else
 		$gift_aid = false;
+
+	$pmpro_level = pmpro_getLevelAtCheckout();
+
+	if ( !pmpro_isLevelFree( $pmpro_level ) ) {
 ?>
 	<hr />
 	<h3><?php esc_html_e("Gift Aid", 'pmpro-gift-aid' );?></h3>
@@ -32,6 +36,7 @@ function pmproga_pmpro_checkout_after_level_cost()
 	<label class="pmpro_normal pmpro_clickable" for="gift_aid">Allow Gift Aid to be collected?</label>
 	<hr />
 <?php
+	} // if for free level.
 }
 add_action('pmpro_checkout_after_level_cost', 'pmproga_pmpro_checkout_after_level_cost');
 
