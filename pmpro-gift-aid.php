@@ -10,35 +10,47 @@ Text Domain: pmpro-gift-aid
 Domain Path: /languages
 */
 
-/*
-	Add checkbox to checkout
-*/
-function pmproga_pmpro_checkout_after_level_cost()
-{
-	if(isset($_REQUEST['gift_aid']))
-		$gift_aid = intval($_REQUEST['gift_aid']);
-	elseif(is_user_logged_in())
-	{
+/**
+ * Render the Gift Aid checkbox on the checkout page.
+ *
+ * @since TBD
+ * @return void
+ */
+function pmproga_pmpro_checkout_after_level_cost() {
+	//Bail if it's a free level, doesn't make sense to have gift aid.
+	$pmpro_level = pmpro_getLevelAtCheckout();
+	if( pmpro_isLevelFree( $pmpro_level ) ) {
+		return;
+	}
+
+	// Get the gift aid value from the request or user meta. False if not set.
+	$gift_aid = 0;
+
+	// Get the gift aid value from the request or user meta. False if not set.
+	if( isset( $_REQUEST['gift_aid'] ) ) {
+		$gift_aid = intval( $_REQUEST[ 'gift_aid' ] );
+	} elseif( is_user_logged_in() ) {
 		global $current_user;
 		$gift_aid = $current_user->gift_aid;
 	}
-	else
-		$gift_aid = false;
-
-	$pmpro_level = pmpro_getLevelAtCheckout();
-
-	if ( !pmpro_isLevelFree( $pmpro_level ) ) {
 ?>
-	<hr />
-	<h3><?php esc_html_e("Gift Aid", 'pmpro-gift-aid' );?></h3>
-    <p><?php esc_html_e("Gift Aid legislation allows us to reclaim 25p of tax on every £1 that you give on your subscription and additional donations. It won't cost you any extra.", 'pmpro-gift-aid' );?></p>
-	<input type="checkbox" id="gift_aid" name="gift_aid" value="1" <?php if($gift_aid) echo 'checked="checked"';?> />
-	<label class="pmpro_normal pmpro_clickable" for="gift_aid">Allow Gift Aid to be collected?</label>
-	<hr />
+	<div class=<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card') ); ?>>
+		<h3 class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card_title pmpro_font-large' ) ); ?>">
+			<?php esc_html_e( 'Gift Aid', 'pmpro-gift-aid' );?>
+		</h3>
+		<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card_content' ) ); ?>">
+			<p><?php esc_html_e( 'Gift Aid legislation allows us to reclaim 25p of tax on every £1 that you give on your 
+				subscription and additional donations. It won\'t cost you any extra.', 'pmpro-gift-aid' ) ?>
+			</p>
+			<input type="checkbox" id="gift_aid" name="gift_aid" value="1" <?php checked( $gift_aid, 1 ) ?> />
+			<label class=<?php echo esc_attr( pmpro_get_element_class( 'pmpro_normal pmpro_clickable' ) ) ?> for="gift_aid">
+				<?php esc_html_e( 'Allow Gift Aid to be collected?', 'pmpro-gift-aid' ); ?>
+			</label>
+		</div>
+	</div>
 <?php
-	} // if for free level.
 }
-add_action('pmpro_checkout_after_level_cost', 'pmproga_pmpro_checkout_after_level_cost');
+add_action('pmpro_checkout_boxes', 'pmproga_pmpro_checkout_after_level_cost');
 
 /*
 	Update user meta.
