@@ -40,19 +40,27 @@ function pmproga_pmpro_checkout_after_level_cost()
 }
 add_action('pmpro_checkout_after_level_cost', 'pmproga_pmpro_checkout_after_level_cost');
 
-/*
-	Update user meta.
-*/
-function pmproga_pmpro_after_checkout($user_id)
-{
-	if(empty($user_id))
+/**
+ * Deal with the Gift Aid checkbox on checkout.
+ *
+ * @param int $user_id The user ID.
+ * @return void
+ * @since TBD
+ */
+function pmproga_pmpro_after_checkout( $user_id ) {
+	//bail if no user_id
+	if( empty( $user_id ) ) {
 		return;
-	
-	if(isset($_REQUEST['gift_aid'])) {
-		update_user_meta($user_id, "gift_aid", intval($_REQUEST['gift_aid']));
-	} elseif(isset($_SESSION['gift_aid'])) {
-		update_user_meta($user_id, "gift_aid", intval($_SESSION['gift_aid']));
-		unset($_SESSION['gift_aid']);
+	}
+
+	if( isset( $_REQUEST['gift_aid']  ) ) {
+		update_user_meta( $user_id, "gift_aid", intval( $_REQUEST['gift_aid'] ) );
+	} elseif( isset( $_SESSION['gift_aid'] ) ) {
+		update_user_meta( $user_id, "gift_aid", intval( $_SESSION['gift_aid'] ) );
+		unset( $_SESSION['gift_aid'] );
+	} else {
+		//Remove gift aid if not set.
+		update_user_meta( $user_id, "gift_aid", 0 );
 	}
 }
 add_action("pmpro_after_checkout", "pmproga_pmpro_after_checkout");
