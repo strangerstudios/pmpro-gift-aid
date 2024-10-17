@@ -36,7 +36,7 @@ function pmproga_pmpro_checkout_after_level_cost() {
 ?>
 	<fieldset id="pmpro-gift-aid-checkbox" class="<?php echo esc_attr( pmpro_get_element_class(
 		'pmpro_form_fieldset pmpro-gift-aid-checkbox' ) ); ?>">
-		<div class=<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card') ); ?>>
+		<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card') ); ?>">
 			<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card_content' ) ); ?>">
 				<legend class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_legend' ) ); ?>">
 					<h2 class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_heading pmpro_font-large' ) ); ?>">
