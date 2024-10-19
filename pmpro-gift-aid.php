@@ -172,34 +172,39 @@ add_filter('pmpro_invoice_bullets_bottom', 'pmproga_pmpro_invoice_bullets_bottom
 /**
  * Show gift aid in confirmation email.
  *
- * @param Email $email The email object.
- * @return Email $email The email object.
  * @since TBD
+ *
+ * @param object $email Email object.
  */
 function pmproga_pmpro_email_filter( $email ) {
 	global $wpdb;
  	
-	//Bail if not an admin confirmation email.
-	if( strpos( $email->template, "checkout_paid_admin" ) === false ) {
+	// Return early if this is not an admin confirmation email.
+	if ( strpos( $email->template, 'checkout_paid_admin' ) === false ) {
 		return $email;
 	}
 
-	//get the user_id from the email
+	// Get the order ID from the email.
 	$order_id = $email->data['invoice_id'];
-	//Bail if no order_id.
+
+	// Return early if the order ID is empty.
 	if( empty( $order_id ) ) {
 		return $email;
 	}
-	$order = new MemberOrder( $order_id );
-	$gift_aid = "No";
 
-	if( isset( $order->notes ) && strpos( $order->notes, "Gift Aid: Yes") !== false ) {
-		$gift_aid = "Yes";
+	// Get the order object.
+	$order = new MemberOrder( $order_id );
+
+	// Set the gift aid value.
+	$gift_aid = __( 'Gift Aid: No', 'pmpro-gift-aid' );
+	if ( isset( $order->notes ) && strpos( $order->notes, __( 'Gift Aid: Yes', 'pmpro-gift-aid' ) ) !== false ) {
+		$gift_aid = __( 'Gift Aid: Yes', 'pmpro-gift-aid' );
 	}
 
+	// Add the gift aid value to the email body.
 	$email->body = preg_replace(
 		'/(<p>\s*Order\s+#.*?<\/p>)/s',
-		'$1' . "<p>Gift Aid: " . $gift_aid . "</p>",
+		'$1' . "<p>" . $gift_aid . "</p>",
 		$email->body
 	);
 
