@@ -169,41 +169,48 @@ function pmproga_pmpro_invoice_bullets_bottom($order)
 }
 add_filter('pmpro_invoice_bullets_bottom', 'pmproga_pmpro_invoice_bullets_bottom');
 
-/*
-	Show gift aid in confirmation email.
-*/
-function pmproga_pmpro_email_filter($email)
-{
+/**
+ * Show gift aid in confirmation email.
+ *
+ * @since TBD
+ *
+ * @param object $email Email object.
+ */
+function pmproga_pmpro_email_filter( $email ) {
 	global $wpdb;
  	
-	//only update admin confirmation emails
-	if(strpos($email->template, "checkout") !== false)
-	{
-		//get the user_id from the email
-		$order_id = $email->data['invoice_id'];
-		if(!empty($order_id))
-		{
-			$order = new MemberOrder($order_id);
-				
-			if(strpos($order->notes, "Gift Aid: Yes") !== false)
-			{
-				$gift_aid = "Yes";
-			}
-			elseif(strpos($order->notes, "Gift Aid: No") !== false)
-			{
-				$gift_aid = "No";
-			}
-			else
-				$gift_aid = "No";
-
-			//add to bottom of email
-			$email->body = preg_replace("/\<p\>\s*Invoice/", "<p>Gift Aid: " . $gift_aid . "</p><p>Invoice", $email->body);	
-		}
+	// Return early if this is not an admin confirmation email.
+	if ( strpos( $email->template, 'checkout_paid_admin' ) === false ) {
+		return $email;
 	}
-		
+
+	// Get the order ID from the email.
+	$order_id = $email->data['invoice_id'];
+
+	// Return early if the order ID is empty.
+	if( empty( $order_id ) ) {
+		return $email;
+	}
+
+	// Get the order object.
+	$order = new MemberOrder( $order_id );
+
+	// Set the gift aid value.
+	$gift_aid = __( 'Gift Aid: No', 'pmpro-gift-aid' );
+	if ( isset( $order->notes ) && strpos( $order->notes, __( 'Gift Aid: Yes', 'pmpro-gift-aid' ) ) !== false ) {
+		$gift_aid = __( 'Gift Aid: Yes', 'pmpro-gift-aid' );
+	}
+
+	// Add the gift aid value to the email body.
+	$email->body = preg_replace(
+		'/(<p>\s*Order\s+#.*?<\/p>)/s',
+		'$1' . "<p>" . $gift_aid . "</p>",
+		$email->body
+	);
+
 	return $email;
 }
-add_filter("pmpro_email_filter", "pmproga_pmpro_email_filter", 10, 2);
+add_filter( "pmpro_email_filter", "pmproga_pmpro_email_filter", 10, 2 );
 
 /*
 	Show gift aid value in orders export.
