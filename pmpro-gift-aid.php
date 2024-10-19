@@ -40,23 +40,32 @@ function pmproga_pmpro_checkout_after_level_cost()
 }
 add_action('pmpro_checkout_after_level_cost', 'pmproga_pmpro_checkout_after_level_cost');
 
-/*
-	Update user meta.
-*/
-function pmproga_pmpro_after_checkout($user_id)
-{
-	if(empty($user_id))
+/**
+ * Update gift aid value in user meta after checkout.
+ *
+ * @since TBD
+ *
+ * @param int $user_id of user who checked out.
+ */
+function pmproga_pmpro_after_checkout( $user_id ) {
+	// Return if user_id is empty.
+	if ( empty( $user_id ) ) {
 		return;
-	
-	if(isset($_REQUEST['gift_aid'])) {
-		update_user_meta($user_id, "gift_aid", intval($_REQUEST['gift_aid']));
-	} elseif(isset($_SESSION['gift_aid'])) {
-		update_user_meta($user_id, "gift_aid", intval($_SESSION['gift_aid']));
-		unset($_SESSION['gift_aid']);
+	}
+
+	// Update gift aid value in user meta.
+	if ( isset( $_REQUEST['gift_aid']  ) ) {
+		update_user_meta( $user_id, 'gift_aid', intval( $_REQUEST['gift_aid'] ) );
+	} elseif ( isset( $_SESSION['gift_aid'] ) ) {
+		update_user_meta( $user_id, 'gift_aid', intval( $_SESSION['gift_aid'] ) );
+		unset( $_SESSION['gift_aid'] );
+	} else {
+		// Set gift aid to 0 if not set.
+		update_user_meta( $user_id, 'gift_aid', 0 );
 	}
 }
-add_action("pmpro_after_checkout", "pmproga_pmpro_after_checkout");
-add_action("pmpro_checkout_before_change_membership_level", "pmproga_pmpro_after_checkout");
+add_action( 'pmpro_after_checkout', 'pmproga_pmpro_after_checkout' );
+add_action( 'pmpro_checkout_before_change_membership_level', 'pmproga_pmpro_after_checkout' );
 
 /*
 	Save gift aid value in session for offsite gateways.
