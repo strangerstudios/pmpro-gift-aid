@@ -1,19 +1,20 @@
 <?php
-/*
-Plugin Name: Paid Memberships Pro - Gift Aid Add On
-Plugin URI: https://www.paidmembershipspro.com/add-ons/gift-aid/
-Description: Add a Checkbox to Opt In to the UK “Gift Aid” Tax-Incentive on Membership Checkout.
-Version: .1.2
-Author: Paid Memberships Pro
-Author URI: https://www.paidmembershipspro.com
-Text Domain: pmpro-gift-aid
-Domain Path: /languages
-*/
+/**
+ * Plugin Name: Paid Memberships Pro - Gift Aid Add On
+ * Plugin URI: https://www.paidmembershipspro.com/add-ons/gift-aid/
+ * Description: Add a checkbox to opt in to the UK Gift Aid tax incentive at checkout.
+ * Version: 0.2
+ * Author: Paid Memberships Pro
+ * Author URI: https://www.paidmembershipspro.com
+ * Text Domain: pmpro-gift-aid
+ * Domain Path: /languages
+ * License: GPL-3.0
+ */
 
 /**
  * Render the Gift Aid checkbox on the checkout page.
  *
- * @since TBD
+ * @since 0.2
  * @return void
  */
 function pmproga_pmpro_checkout_boxes() {
@@ -42,7 +43,7 @@ function pmproga_pmpro_checkout_boxes() {
 	/**
 	 * Filter to show or hide the gift aid checkbox.
 	 *
-	 * @since TBD
+	 * @since 0.2
 	 * @param bool $show_gift_aid True to show the gift aid checkbox, false to hide it.
 	 * @param object $pmpro_level The level object.
 	 *
@@ -88,7 +89,7 @@ add_action('pmpro_checkout_boxes', 'pmproga_pmpro_checkout_boxes');
 /**
  * Update gift aid value in user meta after checkout.
  *
- * @since TBD
+ * @since 0.2
  *
  * @param int $user_id of user who checked out.
  */
@@ -172,7 +173,7 @@ add_filter('pmpro_invoice_bullets_bottom', 'pmproga_pmpro_invoice_bullets_bottom
 /**
  * Show gift aid in confirmation email.
  *
- * @since TBD
+ * @since 0.2
  *
  * @param object $email Email object.
  */
@@ -242,8 +243,8 @@ function pmproga_plugin_row_meta($links, $file) {
 	if(strpos($file, 'pmpro-gift-aid.php') !== false)
 	{
 		$new_links = array(
-			'<a href="' . esc_url('https://www.paidmembershipspro.com/add-ons/gift-aid/')  . '" title="' . esc_attr( __( 'View Documentation', 'pmpro' ) ) . '">' . __( 'Docs', 'pmpro' ) . '</a>',
-			'<a href="' . esc_url('http://paidmembershipspro.com/support/') . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'pmpro-gift-aid' ) ) . '">' . __( 'Support', 'pmpro-gift-aid' ) . '</a>',
+			'<a href="' . esc_url('https://www.paidmembershipspro.com/add-ons/gift-aid/')  . '" title="' . esc_attr( __( 'View Documentation', 'pmpro-gift-aid' ) ) . '">' . __( 'Docs', 'pmpro-gift-aid' ) . '</a>',
+			'<a href="' . esc_url('http://www.paidmembershipspro.com/support/') . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'pmpro-gift-aid' ) ) . '">' . __( 'Support', 'pmpro-gift-aid' ) . '</a>',
 		);
 		$links = array_merge($links, $new_links);
 	}
