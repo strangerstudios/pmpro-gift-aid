@@ -1,0 +1,79 @@
+# Copyright (C) 2024 Paid Memberships Pro
+# This file is distributed under the GPL-3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: Paid Memberships Pro - Gift Aid Add On 0.2\n"
+"Report-Msgid-Bugs-To: info@paidmembershipspro.com\n"
+"Last-Translator: Paid Memberships Pro <info@paidmembershipspro.com>\n"
+"Language-Team: Paid Memberships Pro <info@paidmembershipspro.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-10-19T11:48:35+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: pmpro-gift-aid\n"
+
+#. Plugin Name of the plugin
+#: pmpro-gift-aid.php
+msgid "Paid Memberships Pro - Gift Aid Add On"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: pmpro-gift-aid.php
+msgid "https://www.paidmembershipspro.com/add-ons/gift-aid/"
+msgstr ""
+
+#. Description of the plugin
+#: pmpro-gift-aid.php
+msgid "Add a checkbox to opt in to the UK Gift Aid tax incentive at checkout."
+msgstr ""
+
+#. Author of the plugin
+#: pmpro-gift-aid.php
+msgid "Paid Memberships Pro"
+msgstr ""
+
+#. Author URI of the plugin
+#: pmpro-gift-aid.php
+msgid "https://www.paidmembershipspro.com"
+msgstr ""
+
+#: pmpro-gift-aid.php:71
+#: pmpro-gift-aid.php:161
+#: pmpro-gift-aid.php:167
+msgid "Gift Aid"
+msgstr ""
+
+#: pmpro-gift-aid.php:74
+msgid "Gift Aid legislation allows us to reclaim 25p of tax on every £1 that you give on your subscription and additional donations. It won't cost you any extra."
+msgstr ""
+
+#: pmpro-gift-aid.php:78
+msgid "Allow Gift Aid to be collected?"
+msgstr ""
+
+#: pmpro-gift-aid.php:200
+msgid "Gift Aid: No"
+msgstr ""
+
+#: pmpro-gift-aid.php:201
+#: pmpro-gift-aid.php:202
+msgid "Gift Aid: Yes"
+msgstr ""
+
+#: pmpro-gift-aid.php:246
+msgid "View Documentation"
+msgstr ""
+
+#: pmpro-gift-aid.php:246
+msgid "Docs"
+msgstr ""
+
+#: pmpro-gift-aid.php:247
+msgid "Visit Customer Support Forum"
+msgstr ""
+
+#: pmpro-gift-aid.php:247
+msgid "Support"
+msgstr ""
