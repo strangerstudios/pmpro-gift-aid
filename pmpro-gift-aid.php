@@ -16,47 +16,74 @@ Domain Path: /languages
  * @since TBD
  * @return void
  */
-function pmproga_pmpro_checkout_after_level_cost() {
-	//Bail if it's a free level, doesn't make sense to have gift aid.
+function pmproga_pmpro_checkout_boxes() {
+	// Get the level at checkout.
 	$pmpro_level = pmpro_getLevelAtCheckout();
-	if( pmpro_isLevelFree( $pmpro_level ) ) {
+
+	// Assume we are showing the gift aid checkbox.
+	$show_gift_aid = true;
+
+	// Hide the gift aid checkbox if the level is free.
+	if ( pmpro_isLevelFree( $pmpro_level ) ) {
+		$show_gift_aid = false;
+	}
+
+	// Compatibiliy with Donations Add On.
+	if ( defined( 'PMPRODON_DIR' ) ) {
+		// Does this level have donation pricing?
+		$donfields = get_option( 'pmprodon_' . $pmpro_level->id );
+
+		// If there are donation fields, show the gift aid checkbox.
+		if ( ! empty( $donfields['donations'] ) ) {
+			$show_gift_aid = true;
+		}
+	}
+
+	/**
+	 * Filter to show or hide the gift aid checkbox.
+	 *
+	 * @since TBD
+	 * @param bool $show_gift_aid True to show the gift aid checkbox, false to hide it.
+	 * @param object $pmpro_level The level object.
+	 *
+	 */
+	$show_gift_aid = apply_filters( 'pmproga_show_gift_aid_at_checkout', $show_gift_aid, $pmpro_level );
+
+	// Return early if we are not showing the gift aid checkbox.
+	if ( ! $show_gift_aid ) {
 		return;
 	}
 
 	// Get the gift aid value from the request or user meta. False if not set.
 	$gift_aid = 0;
-
-	// Get the gift aid value from the request or user meta. False if not set.
-	if( isset( $_REQUEST['gift_aid'] ) ) {
-		$gift_aid = intval( $_REQUEST[ 'gift_aid' ] );
+	if ( isset( $_REQUEST['gift_aid'] ) ) {
+		$gift_aid = intval( $_REQUEST['gift_aid'] );
 	} elseif( is_user_logged_in() ) {
 		global $current_user;
 		$gift_aid = $current_user->gift_aid;
 	}
-?>
-	<fieldset id="pmpro-gift-aid-checkbox" class="<?php echo esc_attr( pmpro_get_element_class(
-		'pmpro_form_fieldset pmpro-gift-aid-checkbox' ) ); ?>">
-		<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card') ); ?>">
+	?>
+	<fieldset id="pmpro_gift_aid" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_fieldset', 'pmpro_gift_aid' ) ); ?>">
+		<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card' ) ); ?>">
 			<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card_content' ) ); ?>">
 				<legend class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_legend' ) ); ?>">
-					<h2 class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_heading pmpro_font-large' ) ); ?>">
-						<?php esc_html_e( 'Gift Aid', 'pmpro-gift-aid' );?>
-					</h2>
+					<h2 class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_heading pmpro_font-large' ) ); ?>"><?php esc_html_e( 'Gift Aid', 'pmpro-gift-aid' ); ?></h2>
 				</legend>
-				<p><?php esc_html_e( 'Gift Aid legislation allows us to reclaim 25p of tax on every £1 that you give on your subscription and additional donations. It won\'t cost you any extra.', 'pmpro-gift-aid' ) ?>
-				</p>
-				<input class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_input pmpro_form_input-checkbox' ) ) ?>"
-				 type="checkbox" id="gift_aid" name="gift_aid" value="1" <?php checked( $gift_aid, 1 ) ?> />
-				<label class="<?php echo esc_attr( pmpro_get_element_class(
-					'pmpro_form_label pmpro_form_label-inline pmpro_clickable gift_aid' ) ) ?>" for="gift_aid">
-					<?php esc_html_e( 'Allow Gift Aid to be collected?', 'pmpro-gift-aid' ); ?>
-				</label>
-			</div>
-		</div>
-	</fieldset>
-<?php
+				<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_fields' ) ); ?>">
+					<p class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_fields-description' ) ); ?>"><?php esc_html_e( "Gift Aid legislation allows us to reclaim 25p of tax on every £1 that you give on your subscription and additional donations. It won't cost you any extra.", 'pmpro-gift-aid' ) ?></p>
+					<div id="gift_aid-div" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_field pmpro_form_field-checkbox' ) ); ?>">
+						<label class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_label pmpro_form_label-inline pmpro_clickable' ) ); ?>" for="gift_aid">
+							<input name="gift_aid" type="checkbox" value="1" id="gift_aid" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_input pmpro_form_input-checkbox', 'gift_aid' ) ); ?>" <?php checked( $gift_aid, 1 ) ?> />
+							<?php esc_html_e( 'Allow Gift Aid to be collected?', 'pmpro-gift-aid' ); ?>
+						</label>
+					</div>
+				</div> <!-- end pmpro_form_fields -->
+			</div> <!-- end pmpro_card_content -->
+		</div> <!-- end pmpro_card -->
+	</fieldset> <!-- end pmpro_gift_aid -->
+	<?php
 }
-add_action('pmpro_checkout_boxes', 'pmproga_pmpro_checkout_after_level_cost');
+add_action('pmpro_checkout_boxes', 'pmproga_pmpro_checkout_boxes');
 
 /*
 	Update user meta.
