@@ -9,7 +9,7 @@
 
 This Add On allows you to add a checkbox to membership checkout so customers can opt in to Gift Aid. If you don’t know what Gift Aid is, you probably don’t need this.
 
-For more information please visit [www.paidmembershipspro.com/add-ons/gift-aid/](https://www.paidmembershipspro.com/add-ons/gift-aid/)
+For more information please visit [Paid Memberships Pro - Gift Aid](https://www.paidmembershipspro.com/add-ons/gift-aid/)
 
 ## Installation ##
 For detailed installation steps, visit the our [documentation](https://www.paidmembershipspro.com/add-ons/gift-aid/) page.
