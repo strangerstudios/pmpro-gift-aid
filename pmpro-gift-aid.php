@@ -11,6 +11,10 @@
  * License: GPL-3.0
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Render the Gift Aid checkbox on the checkout page.
  *
@@ -57,8 +61,10 @@ function pmproga_pmpro_checkout_boxes() {
 
 	// Get the gift aid value from the request or user meta. False if not set.
 	$gift_aid = 0;
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Read-only: pre-fills the checkbox on the checkout form.
 	if ( isset( $_REQUEST['gift_aid'] ) ) {
 		$gift_aid = intval( $_REQUEST['gift_aid'] );
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	} elseif( is_user_logged_in() ) {
 		global $current_user;
 		$gift_aid = $current_user->gift_aid;
@@ -100,8 +106,10 @@ function pmproga_pmpro_after_checkout( $user_id ) {
 	}
 
 	// Update gift aid value in user meta.
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Runs during checkout after PMPro core verifies pmpro_checkout_nonce (preheaders/checkout.php).
 	if ( isset( $_REQUEST['gift_aid']  ) ) {
 		update_user_meta( $user_id, 'gift_aid', intval( $_REQUEST['gift_aid'] ) );
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	} elseif ( isset( $_SESSION['gift_aid'] ) ) {
 		update_user_meta( $user_id, 'gift_aid', intval( $_SESSION['gift_aid'] ) );
 		unset( $_SESSION['gift_aid'] );
@@ -117,8 +125,10 @@ add_action( 'pmpro_checkout_before_change_membership_level', 'pmproga_pmpro_afte
 	Save gift aid value in session for offsite gateways.
 */
 function pmpro_paypalexpress_session_vars() {
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Runs during checkout after PMPro core verifies pmpro_checkout_nonce (preheaders/checkout.php).
 	if(isset($_REQUEST['gift_aid'])) {
-		$_SESSION['gift_aid'] = $_REQUEST['gift_aid'];				
+		$_SESSION['gift_aid'] = intval( $_REQUEST['gift_aid'] );
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	}
 }
 add_action("pmpro_paypalexpress_session_vars", "pmpro_paypalexpress_session_vars");
@@ -129,10 +139,12 @@ add_action("pmpro_before_send_to_twocheckout", "pmpro_paypalexpress_session_vars
 */
 function pmproga_pmpro_checkout_order($order)
 {
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Runs while building the checkout order after PMPro core verifies pmpro_checkout_nonce (preheaders/checkout.php).
 	if(!empty($_REQUEST['gift_aid']))
 		$gift_aid = intval($_REQUEST['gift_aid']);
 	else
 		return $order;
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	
 	if(!empty($order) && (empty($order->notes) || strpos($order->notes, "Gift Aid:") === false))
 	{
