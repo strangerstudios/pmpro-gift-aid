@@ -2,8 +2,8 @@
 Contributors: strangerstudios
 Tags: paid memberships pro, pmpro, membership, uk, gift aid
 Requires at least: 5.4
-Tested up to: 6.6
-Stable tag: 0.2
+Tested up to: 7.1
+Stable tag: 0.2.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -29,6 +29,9 @@ This plugin requires Paid Memberships Pro.
 Please post it in the issues section of GitHub and we'll fix it as soon as we can. Thanks for helping. https://github.com/strangerstudios/pmpro-gift-aid/issues
 
 == Changelog ==
+
+= 0.2.1 - 2026-09-29 =
+* SECURITY: Improved sanitization and escaping throughout the plugin to resolve Plugin Check security findings. #23 (@dparker1005)
 
 = 0.2 - 2024-10-19 =
 * ENHANCEMENT: Updated the frontend UI for compatibility with PMPro v3.1. #18 (@MaximilianoRicoTabo, @kimcoleman)
