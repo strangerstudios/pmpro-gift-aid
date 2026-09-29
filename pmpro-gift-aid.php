@@ -80,6 +80,7 @@ function pmproga_pmpro_checkout_boxes() {
 					<p class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_fields-description' ) ); ?>"><?php esc_html_e( "Gift Aid legislation allows us to reclaim 25p of tax on every £1 that you give on your subscription and additional donations. It won't cost you any extra.", 'pmpro-gift-aid' ) ?></p>
 					<div id="gift_aid-div" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_field pmpro_form_field-checkbox' ) ); ?>">
 						<label class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_label pmpro_form_label-inline pmpro_clickable' ) ); ?>" for="gift_aid">
+							<input type="hidden" name="gift_aid" value="0" />
 							<input name="gift_aid" type="checkbox" value="1" id="gift_aid" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_input pmpro_form_input-checkbox', 'gift_aid' ) ); ?>" <?php checked( $gift_aid, 1 ) ?> />
 							<?php esc_html_e( 'Allow Gift Aid to be collected?', 'pmpro-gift-aid' ); ?>
 						</label>
@@ -112,10 +113,8 @@ function pmproga_pmpro_after_checkout( $user_id ) {
 	} elseif ( isset( $_SESSION['gift_aid'] ) ) {
 		update_user_meta( $user_id, 'gift_aid', intval( $_SESSION['gift_aid'] ) );
 		unset( $_SESSION['gift_aid'] );
-	} else {
-		// Set gift aid to 0 if not set.
-		update_user_meta( $user_id, 'gift_aid', 0 );
 	}
+	// If neither is set (e.g. a gateway IPN/webhook completing the checkout), leave the saved value alone.
 	// phpcs:enable WordPress.Security.NonceVerification.Recommended
 }
 add_action( 'pmpro_after_checkout', 'pmproga_pmpro_after_checkout' );
