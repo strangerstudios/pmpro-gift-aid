@@ -32,6 +32,7 @@ Please post it in the issues section of GitHub and we'll fix it as soon as we ca
 
 = 0.2.1 - 2026-09-29 =
 * SECURITY: Improved sanitization and escaping throughout the plugin to resolve Plugin Check security findings. #23 (@dparker1005)
+* BUG FIX: Fixed an issue where a member's Gift Aid opt-in could be overwritten when an offsite gateway such as PayPal Standard completed the checkout. #24 (@dparker1005)
 
 = 0.2 - 2024-10-19 =
 * ENHANCEMENT: Updated the frontend UI for compatibility with PMPro v3.1. #18 (@MaximilianoRicoTabo, @kimcoleman)
