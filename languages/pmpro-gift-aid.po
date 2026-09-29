@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-29T16:32:19+00:00\n"
+"POT-Creation-Date: 2026-09-29T18:23:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pmpro-gift-aid\n"
@@ -45,6 +45,8 @@ msgstr ""
 #: pmpro-gift-aid.php:77
 #: pmpro-gift-aid.php:173
 #: pmpro-gift-aid.php:179
+#: pmpro-gift-aid.php:172
+#: pmpro-gift-aid.php:178
 msgid "Gift Aid"
 msgstr ""
 
@@ -55,11 +57,13 @@ msgstr ""
 
 #: pmpro-gift-aid.php:78
 #: pmpro-gift-aid.php:84
+#: pmpro-gift-aid.php:85
 msgid "Allow Gift Aid to be collected?"
 msgstr ""
 
 #: pmpro-gift-aid.php:200
 #: pmpro-gift-aid.php:212
+#: pmpro-gift-aid.php:211
 msgid "Gift Aid: No"
 msgstr ""
 
@@ -67,25 +71,30 @@ msgstr ""
 #: pmpro-gift-aid.php:202
 #: pmpro-gift-aid.php:213
 #: pmpro-gift-aid.php:214
+#: pmpro-gift-aid.php:212
 msgid "Gift Aid: Yes"
 msgstr ""
 
 #: pmpro-gift-aid.php:246
 #: pmpro-gift-aid.php:258
+#: pmpro-gift-aid.php:257
 msgid "View Documentation"
 msgstr ""
 
 #: pmpro-gift-aid.php:246
 #: pmpro-gift-aid.php:258
+#: pmpro-gift-aid.php:257
 msgid "Docs"
 msgstr ""
 
 #: pmpro-gift-aid.php:247
 #: pmpro-gift-aid.php:259
+#: pmpro-gift-aid.php:258
 msgid "Visit Customer Support Forum"
 msgstr ""
 
 #: pmpro-gift-aid.php:247
 #: pmpro-gift-aid.php:259
+#: pmpro-gift-aid.php:258
 msgid "Support"
 msgstr ""
