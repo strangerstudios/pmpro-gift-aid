@@ -3,7 +3,7 @@
  * Plugin Name: Paid Memberships Pro - Gift Aid Add On
  * Plugin URI: https://www.paidmembershipspro.com/add-ons/gift-aid/
  * Description: Add a checkbox to opt in to the UK Gift Aid tax incentive at checkout.
- * Version: 0.2.1
+ * Version: 0.2.2
  * Author: Paid Memberships Pro
  * Author URI: https://www.paidmembershipspro.com
  * Text Domain: pmpro-gift-aid
@@ -168,7 +168,7 @@ add_filter('pmpro_checkout_order', 'pmproga_pmpro_checkout_order');
  * saved Gift Aid preference is only used when the subscription has no earlier
  * order, since an original order without a note means the box was unchecked.
  *
- * @since TBD
+ * @since 0.2.2
  *
  * @param MemberOrder $order The recurring order.
  */

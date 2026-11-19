@@ -3,7 +3,7 @@ Contributors: strangerstudios
 Tags: paid memberships pro, pmpro, membership, uk, gift aid
 Requires at least: 5.4
 Tested up to: 7.1
-Stable tag: 0.2.1
+Stable tag: 0.2.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -29,6 +29,10 @@ This plugin requires Paid Memberships Pro.
 Please post it in the issues section of GitHub and we'll fix it as soon as we can. Thanks for helping. https://github.com/strangerstudios/pmpro-gift-aid/issues
 
 == Changelog ==
+
+= 0.2.2 - 2026-11-19 =
+* ENHANCEMENT: Recurring orders now get the Gift Aid note from the subscription's original order, so renewals show the correct Gift Aid value on invoices and in the Orders CSV export. #25 (@dparker1005)
+* ENHANCEMENT: Checkout orders now record "Gift Aid: No" when the Gift Aid box is left unchecked. #25 (@dparker1005)
 
 = 0.2.1 - 2026-09-29 =
 * SECURITY: Improved sanitization and escaping throughout the plugin to resolve Plugin Check security findings. #23 (@dparker1005)
