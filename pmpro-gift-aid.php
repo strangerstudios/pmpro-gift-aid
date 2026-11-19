@@ -164,8 +164,9 @@ add_filter('pmpro_checkout_order', 'pmproga_pmpro_checkout_order');
 /**
  * Add the Gift Aid note to recurring orders.
  *
- * Uses the Gift Aid note from the subscription's original order,
- * falling back to the user's saved Gift Aid preference.
+ * Uses the Gift Aid note from the subscription's original order. The user's
+ * saved Gift Aid preference is only used when the subscription has no earlier
+ * order, since an original order without a note means the box was unchecked.
  *
  * @since TBD
  *
@@ -194,11 +195,14 @@ function pmproga_pmpro_subscription_payment_completed( $order ) {
 				$gift_aid = 1;
 			} elseif ( strpos( (string) $original_order->notes, 'Gift Aid: No' ) !== false ) {
 				$gift_aid = 0;
+			} elseif ( (int) $original_order->id !== (int) $order->id ) {
+				// The original order has no Gift Aid note, so the member didn't opt in for this subscription.
+				return;
 			}
 		}
 	}
 
-	// Fall back to the user's saved Gift Aid preference.
+	// Fall back to the user's saved Gift Aid preference when there is no earlier order.
 	if ( null === $gift_aid ) {
 		$user_gift_aid = get_user_meta( $order->user_id, 'gift_aid', true );
 		if ( '' === $user_gift_aid ) {
