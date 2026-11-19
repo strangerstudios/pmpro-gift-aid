@@ -139,7 +139,7 @@ add_action("pmpro_before_send_to_twocheckout", "pmpro_paypalexpress_session_vars
 function pmproga_pmpro_checkout_order($order)
 {
 	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Runs while building the checkout order after PMPro core verifies pmpro_checkout_nonce (preheaders/checkout.php).
-	if(!empty($_REQUEST['gift_aid']))
+	if(isset($_REQUEST['gift_aid']))
 		$gift_aid = intval($_REQUEST['gift_aid']);
 	else
 		return $order;
