@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Paid Memberships Pro - Gift Aid Add On 0.2.1\n"
+"Project-Id-Version: Paid Memberships Pro - Gift Aid Add On 0.2.2\n"
 "Report-Msgid-Bugs-To: info@paidmembershipspro.com\n"
 "Last-Translator: Paid Memberships Pro <info@paidmembershipspro.com>\n"
 "Language-Team: Paid Memberships Pro <info@paidmembershipspro.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-29T18:23:58+00:00\n"
+"POT-Creation-Date: 2026-11-19T17:49:25+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pmpro-gift-aid\n"
@@ -40,8 +40,8 @@ msgid "https://www.paidmembershipspro.com"
 msgstr ""
 
 #: pmpro-gift-aid.php:77
-#: pmpro-gift-aid.php:172
-#: pmpro-gift-aid.php:178
+#: pmpro-gift-aid.php:236
+#: pmpro-gift-aid.php:242
 msgid "Gift Aid"
 msgstr ""
 
@@ -53,27 +53,27 @@ msgstr ""
 msgid "Allow Gift Aid to be collected?"
 msgstr ""
 
-#: pmpro-gift-aid.php:211
+#: pmpro-gift-aid.php:275
 msgid "Gift Aid: No"
 msgstr ""
 
-#: pmpro-gift-aid.php:212
-#: pmpro-gift-aid.php:213
+#: pmpro-gift-aid.php:276
+#: pmpro-gift-aid.php:277
 msgid "Gift Aid: Yes"
 msgstr ""
 
-#: pmpro-gift-aid.php:257
+#: pmpro-gift-aid.php:321
 msgid "View Documentation"
 msgstr ""
 
-#: pmpro-gift-aid.php:257
+#: pmpro-gift-aid.php:321
 msgid "Docs"
 msgstr ""
 
-#: pmpro-gift-aid.php:258
+#: pmpro-gift-aid.php:322
 msgid "Visit Customer Support Forum"
 msgstr ""
 
-#: pmpro-gift-aid.php:258
+#: pmpro-gift-aid.php:322
 msgid "Support"
 msgstr ""
