@@ -139,7 +139,7 @@ add_action("pmpro_before_send_to_twocheckout", "pmpro_paypalexpress_session_vars
 function pmproga_pmpro_checkout_order($order)
 {
 	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Runs while building the checkout order after PMPro core verifies pmpro_checkout_nonce (preheaders/checkout.php).
-	if(!empty($_REQUEST['gift_aid']))
+	if(isset($_REQUEST['gift_aid']))
 		$gift_aid = intval($_REQUEST['gift_aid']);
 	else
 		return $order;
@@ -160,6 +160,70 @@ function pmproga_pmpro_checkout_order($order)
 	return $order;
 }
 add_filter('pmpro_checkout_order', 'pmproga_pmpro_checkout_order');
+
+/**
+ * Add the Gift Aid note to recurring orders.
+ *
+ * Uses the Gift Aid note from the subscription's original order. The user's
+ * saved Gift Aid preference is only used when the subscription has no earlier
+ * order, since an original order without a note means the box was unchecked.
+ *
+ * @since TBD
+ *
+ * @param MemberOrder $order The recurring order.
+ */
+function pmproga_pmpro_subscription_payment_completed( $order ) {
+	// Bail if the order is missing a user or already has a Gift Aid note.
+	if ( empty( $order ) || empty( $order->user_id ) || ( ! empty( $order->notes ) && strpos( $order->notes, 'Gift Aid:' ) !== false ) ) {
+		return;
+	}
+
+	$gift_aid = null;
+
+	// Check the original order for this subscription.
+	$subscription = $order->get_subscription();
+	if ( ! empty( $subscription ) ) {
+		$original_orders = $subscription->get_orders(
+			array(
+				'orderby' => '`timestamp` ASC, `id` ASC',
+				'limit'   => 1,
+			)
+		);
+		if ( ! empty( $original_orders ) ) {
+			$original_order = current( $original_orders );
+			if ( strpos( (string) $original_order->notes, 'Gift Aid: Yes' ) !== false ) {
+				$gift_aid = 1;
+			} elseif ( strpos( (string) $original_order->notes, 'Gift Aid: No' ) !== false ) {
+				$gift_aid = 0;
+			} elseif ( (int) $original_order->id !== (int) $order->id ) {
+				// The original order has no Gift Aid note, so the member didn't opt in for this subscription.
+				return;
+			}
+		}
+	}
+
+	// Fall back to the user's saved Gift Aid preference when there is no earlier order.
+	if ( null === $gift_aid ) {
+		$user_gift_aid = get_user_meta( $order->user_id, 'gift_aid', true );
+		if ( '' === $user_gift_aid ) {
+			return;
+		}
+		$gift_aid = intval( $user_gift_aid );
+	}
+
+	if ( ! isset( $order->notes ) || null === $order->notes ) {
+		$order->notes = '';
+	}
+
+	if ( $gift_aid ) {
+		$order->notes .= "Gift Aid: Yes\n";
+	} else {
+		$order->notes .= "Gift Aid: No\n";
+	}
+
+	$order->saveOrder();
+}
+add_action( 'pmpro_subscription_payment_completed', 'pmproga_pmpro_subscription_payment_completed' );
 
 /*
 	Show Gift Aid on confirmation and invoice pages.
