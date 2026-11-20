@@ -273,16 +273,24 @@ function pmproga_pmpro_email_filter( $email ) {
 
 	// Set the gift aid value.
 	$gift_aid = __( 'Gift Aid: No', 'pmpro-gift-aid' );
-	if ( isset( $order->notes ) && strpos( $order->notes, __( 'Gift Aid: Yes', 'pmpro-gift-aid' ) ) !== false ) {
+	// The order note is always saved in English, so compare against the untranslated string.
+	if ( isset( $order->notes ) && strpos( $order->notes, 'Gift Aid: Yes' ) !== false ) {
 		$gift_aid = __( 'Gift Aid: Yes', 'pmpro-gift-aid' );
 	}
 
-	// Add the gift aid value to the email body.
+	// Add the gift aid value to the email body after the order details.
 	$email->body = preg_replace(
 		'/(<p>\s*Order\s+#.*?<\/p>)/s',
 		'$1' . "<p>" . $gift_aid . "</p>",
-		$email->body
+		$email->body,
+		-1,
+		$replacements
 	);
+
+	// If the template was edited or translated and has no order details paragraph, add the value to the end of the email.
+	if ( empty( $replacements ) ) {
+		$email->body .= "<p>" . $gift_aid . "</p>";
+	}
 
 	return $email;
 }
